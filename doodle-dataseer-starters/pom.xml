@@ -8,18 +8,11 @@
     <groupId>org.doodle</groupId>
     <artifactId>doodle-dataseer-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>doodle-dataseer-parent/pom.xml</relativePath>
+    <relativePath>../doodle-dataseer-parent/pom.xml</relativePath>
   </parent>
-  <artifactId>doodle-dataseer</artifactId>
+  <artifactId>doodle-dataseer-starters</artifactId>
   <packaging>pom</packaging>
-  <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
-  </properties>
   <modules>
-    <module>doodle-dataseer-autoconfigure</module>
-    <module>doodle-dataseer-client-core</module>
-    <module>doodle-dataseer-dependencies</module>
-    <module>doodle-dataseer-parent</module>
-    <module>doodle-dataseer-starters</module>
+    <module>doodle-dataseer-starter-client</module>
   </modules>
 </project>
