@@ -13,6 +13,7 @@
   <artifactId>doodle-dataseer-parent</artifactId>
   <packaging>pom</packaging>
   <properties>
+    <doodle-socket.version>0.0.1-SNAPSHOT</doodle-socket.version>
     <doodle-design.version>0.0.1-SNAPSHOT</doodle-design.version>
     <doodle-boot.version>0.0.1-SNAPSHOT</doodle-boot.version>
     <doodle-broker.version>0.0.1-SNAPSHOT</doodle-broker.version>
@@ -22,6 +23,13 @@
   </properties>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.doodle</groupId>
+        <artifactId>doodle-socket-dependencies</artifactId>
+        <version>${doodle-socket.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.doodle</groupId>
         <artifactId>doodle-design-dependencies</artifactId>
