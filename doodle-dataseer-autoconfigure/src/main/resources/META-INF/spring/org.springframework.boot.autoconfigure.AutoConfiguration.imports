@@ -1,1 +1,2 @@
 org.doodle.dataseer.autoconfigure.client.DataSeerClientAutoConfiguration
+org.doodle.dataseer.autoconfigure.server.DataSeerServerAutoConfiguration

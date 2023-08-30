@@ -20,6 +20,7 @@
     <module>doodle-dataseer-client-core</module>
     <module>doodle-dataseer-dependencies</module>
     <module>doodle-dataseer-parent</module>
+    <module>doodle-dataseer-server-core</module>
     <module>doodle-dataseer-starters</module>
   </modules>
 </project>

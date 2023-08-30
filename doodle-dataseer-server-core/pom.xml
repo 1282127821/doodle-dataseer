@@ -10,10 +10,19 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../doodle-dataseer-parent/pom.xml</relativePath>
   </parent>
-  <artifactId>doodle-dataseer-starters</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>doodle-dataseer-starter-client</module>
-    <module>doodle-dataseer-starter-server</module>
-  </modules>
+  <artifactId>doodle-dataseer-server-core</artifactId>
+  <properties>
+    <spotless-maven-plugin.skip>false</spotless-maven-plugin.skip>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-boot-core</artifactId>
+    </dependency>
+  </dependencies>
 </project>
