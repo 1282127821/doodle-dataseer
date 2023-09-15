@@ -15,12 +15,41 @@
  */
 package org.doodle.dataseer.autoconfigure.client;
 
-import org.doodle.dataseer.client.DataSeerClientProperties;
+import org.doodle.broker.autoconfigure.client.BrokerClientAutoConfiguration;
+import org.doodle.broker.client.BrokerClientRSocketRequester;
+import org.doodle.dataseer.client.*;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
-@AutoConfiguration
+@AutoConfiguration(after = BrokerClientAutoConfiguration.class)
 @ConditionalOnClass(DataSeerClientProperties.class)
 @EnableConfigurationProperties(DataSeerClientProperties.class)
-public class DataSeerClientAutoConfiguration {}
+public class DataSeerClientAutoConfiguration {
+
+  @AutoConfiguration
+  @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+  public static class ServletConfiuration {
+    @Bean
+    @ConditionalOnMissingBean
+    public DataSeerClientServlet dataSeerClientServlet(RestTemplate restTemplate) {
+      return new DataSeerClientServletImpl(restTemplate);
+    }
+  }
+
+  @AutoConfiguration
+  @ConditionalOnClass(BrokerClientRSocketRequester.class)
+  @ConditionalOnMissingBean(BrokerClientRSocketRequester.class)
+  public static class RSocketConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    public DataSeerClientRSocket dataSeerClientRSocket(
+        BrokerClientRSocketRequester requester, DataSeerClientProperties properties) {
+      return new BrokerDataSeerClientRSocket(requester, properties);
+    }
+  }
+}

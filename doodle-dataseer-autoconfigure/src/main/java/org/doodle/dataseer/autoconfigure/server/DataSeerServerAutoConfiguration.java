@@ -15,12 +15,37 @@
  */
 package org.doodle.dataseer.autoconfigure.server;
 
+import org.doodle.dataseer.server.DataSeerServerLogRSocketController;
+import org.doodle.dataseer.server.DataSeerServerLogServletController;
 import org.doodle.dataseer.server.DataSeerServerProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 @AutoConfiguration
 @ConditionalOnClass(DataSeerServerProperties.class)
 @EnableConfigurationProperties(DataSeerServerProperties.class)
-public class DataSeerServerAutoConfiguration {}
+public class DataSeerServerAutoConfiguration {
+
+  @AutoConfiguration
+  public static class RSocketConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    public DataSeerServerLogRSocketController dataSeerServerLogRSocketController() {
+      return new DataSeerServerLogRSocketController();
+    }
+  }
+
+  @AutoConfiguration
+  @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+  public static class ServletConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    public DataSeerServerLogServletController dataSeerServerLogServletController() {
+      return new DataSeerServerLogServletController();
+    }
+  }
+}

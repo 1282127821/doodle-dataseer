@@ -24,5 +24,14 @@
       <groupId>org.doodle</groupId>
       <artifactId>doodle-boot-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-design-dataseer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-broker-client-core</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 </project>

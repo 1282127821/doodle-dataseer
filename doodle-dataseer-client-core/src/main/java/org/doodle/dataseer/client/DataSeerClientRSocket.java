@@ -15,23 +15,6 @@
  */
 package org.doodle.dataseer.client;
 
-import java.util.Map;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.doodle.design.dataseer.DataSeerLogUploadOps;
 
-@Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@ConfigurationProperties(prefix = DataSeerClientProperties.PREFIX)
-public class DataSeerClientProperties {
-  public static final String PREFIX = "doodle.dataseer.client";
-
-  Server server = new Server();
-
-  @Data
-  @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-  public static class Server {
-    Map<String, String> tag = Map.of("server-type", "dataseer");
-  }
-}
+public interface DataSeerClientRSocket extends DataSeerLogUploadOps.RSocket {}

@@ -10,7 +10,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../doodle-dataseer-parent/pom.xml</relativePath>
   </parent>
-  <artifactId>doodle-dataseer-autoconfigure</artifactId>
+  <artifactId>doodle-dataseer-server</artifactId>
   <properties>
     <spotless-maven-plugin.skip>false</spotless-maven-plugin.skip>
   </properties>
@@ -22,26 +22,7 @@
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-boot-autoconfigure</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.doodle</groupId>
-      <artifactId>doodle-broker-autoconfigure</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.doodle</groupId>
-      <artifactId>doodle-broker-client-core</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-client-core</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-server-core</artifactId>
-      <optional>true</optional>
+      <artifactId>doodle-dataseer-starter-server</artifactId>
     </dependency>
   </dependencies>
 </project>

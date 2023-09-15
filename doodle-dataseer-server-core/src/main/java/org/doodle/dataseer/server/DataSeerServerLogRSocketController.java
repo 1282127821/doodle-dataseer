@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.doodle.dataseer.client;
+package org.doodle.dataseer.server;
 
-import java.util.Map;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.doodle.design.dataseer.DataSeerLogUploadOps;
+import org.doodle.design.dataseer.LogUploadRequest;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.stereotype.Controller;
+import reactor.core.publisher.Mono;
 
-@Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@ConfigurationProperties(prefix = DataSeerClientProperties.PREFIX)
-public class DataSeerClientProperties {
-  public static final String PREFIX = "doodle.dataseer.client";
+@Controller
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+public class DataSeerServerLogRSocketController implements DataSeerLogUploadOps.RSocket {
 
-  Server server = new Server();
-
-  @Data
-  @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-  public static class Server {
-    Map<String, String> tag = Map.of("server-type", "dataseer");
+  @MessageMapping(DataSeerLogUploadOps.RSocket.UPLOAD_MAPPING)
+  @Override
+  public Mono<Void> upload(LogUploadRequest request) {
+    return Mono.empty();
   }
 }
