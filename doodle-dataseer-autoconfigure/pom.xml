@@ -35,12 +35,32 @@
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-client-core</artifactId>
+      <artifactId>doodle-dataseer-operation-client-core</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-server-core</artifactId>
+      <artifactId>doodle-dataseer-operation-server-core</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-dataseer-report-client-core</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-dataseer-report-server-core</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-dataseer-tracing-client-core</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-dataseer-tracing-server-core</artifactId>
       <optional>true</optional>
     </dependency>
   </dependencies>

@@ -10,14 +10,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../doodle-dataseer-parent/pom.xml</relativePath>
   </parent>
-  <artifactId>doodle-dataseer-starters</artifactId>
+  <artifactId>doodle-dataseer-report</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>doodle-dataseer-starter-operation-client</module>
-    <module>doodle-dataseer-starter-operation-server</module>
-    <module>doodle-dataseer-starter-report-client</module>
-    <module>doodle-dataseer-starter-report-server</module>
-    <module>doodle-dataseer-starter-tracing-client</module>
-    <module>doodle-dataseer-starter-tracing-server</module>
+    <module>doodle-dataseer-report-client-core</module>
+    <module>doodle-dataseer-report-server-core</module>
   </modules>
 </project>

@@ -17,11 +17,12 @@
   </properties>
   <modules>
     <module>doodle-dataseer-autoconfigure</module>
-    <module>doodle-dataseer-client-core</module>
     <module>doodle-dataseer-dependencies</module>
+    <module>doodle-dataseer-operation</module>
     <module>doodle-dataseer-parent</module>
+    <module>doodle-dataseer-report</module>
     <module>doodle-dataseer-server</module>
-    <module>doodle-dataseer-server-core</module>
     <module>doodle-dataseer-starters</module>
+    <module>doodle-dataseer-tracing</module>
   </modules>
 </project>

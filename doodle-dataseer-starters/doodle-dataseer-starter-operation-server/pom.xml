@@ -6,31 +6,23 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.doodle</groupId>
-    <artifactId>doodle-dataseer-parent</artifactId>
+    <artifactId>doodle-dataseer-starters</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../doodle-dataseer-parent/pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>doodle-dataseer-server</artifactId>
-  <properties>
-    <spotless-maven-plugin.skip>false</spotless-maven-plugin.skip>
-  </properties>
+  <artifactId>doodle-dataseer-starter-operation-server</artifactId>
   <dependencies>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
+      <groupId>org.doodle</groupId>
+      <artifactId>doodle-dataseer-autoconfigure</artifactId>
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-starter-operation-server</artifactId>
+      <artifactId>doodle-dataseer-report-server-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-starter-report-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-starter-tracing-server</artifactId>
+      <artifactId>doodle-broker-starter-client</artifactId>
     </dependency>
   </dependencies>
 </project>

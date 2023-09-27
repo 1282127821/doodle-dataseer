@@ -6,13 +6,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.doodle</groupId>
-    <artifactId>doodle-dataseer-parent</artifactId>
+    <artifactId>doodle-dataseer-tracing</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../doodle-dataseer-parent/pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>doodle-dataseer-server</artifactId>
+  <artifactId>doodle-dataseer-tracing-server-core</artifactId>
   <properties>
     <spotless-maven-plugin.skip>false</spotless-maven-plugin.skip>
+    <spotless.license-header.file>
+      ${project.basedir}/../../src/checkstyle/license-header.txt
+    </spotless.license-header.file>
   </properties>
   <dependencies>
     <dependency>
@@ -22,15 +25,12 @@
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-starter-operation-server</artifactId>
+      <artifactId>doodle-design-dataseer</artifactId>
     </dependency>
     <dependency>
       <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-starter-report-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.doodle</groupId>
-      <artifactId>doodle-dataseer-starter-tracing-server</artifactId>
+      <artifactId>doodle-broker-client-core</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>
