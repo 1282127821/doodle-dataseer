@@ -15,5 +15,6 @@
   <modules>
     <module>doodle-dataseer-tracing-client-core</module>
     <module>doodle-dataseer-tracing-server-core</module>
+    <module>doodle-dataseer-tracing-vaadin-core</module>
   </modules>
 </project>

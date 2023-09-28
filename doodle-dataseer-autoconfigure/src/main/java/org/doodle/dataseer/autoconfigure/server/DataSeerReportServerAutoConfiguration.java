@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.doodle.dataseer.autoconfigure.operation.client;
+package org.doodle.dataseer.autoconfigure.server;
 
-import org.doodle.broker.autoconfigure.client.BrokerClientAutoConfiguration;
 import org.doodle.broker.client.BrokerClientRSocketRequester;
-import org.doodle.dataseer.operation.client.*;
+import org.doodle.dataseer.report.server.DataSeerReportServerMapper;
+import org.doodle.dataseer.report.server.DataSeerReportServerProperties;
+import org.doodle.dataseer.report.server.DataSeerReportServerRSocketController;
+import org.doodle.dataseer.report.server.DataSeerReportServerServletController;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -25,12 +27,17 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
-@AutoConfiguration(after = BrokerClientAutoConfiguration.class)
-@ConditionalOnClass(DataSeerOperationClientProperties.class)
-@EnableConfigurationProperties(DataSeerOperationClientProperties.class)
-public class DataSeerOperationClientAutoConfiguration {
+@AutoConfiguration
+@ConditionalOnClass(DataSeerReportServerProperties.class)
+@EnableConfigurationProperties(DataSeerReportServerProperties.class)
+public class DataSeerReportServerAutoConfiguration {
+
+  @Bean
+  @ConditionalOnMissingBean
+  public DataSeerReportServerMapper dataSeerReportServerMapper() {
+    return new DataSeerReportServerMapper();
+  }
 
   @AutoConfiguration
   @ConditionalOnClass(BrokerClientRSocketRequester.class)
@@ -38,9 +45,8 @@ public class DataSeerOperationClientAutoConfiguration {
   public static class RSocketConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerOperationClientRSocket dataSeerOperationClientRSocket(
-        BrokerClientRSocketRequester requester, DataSeerOperationClientProperties properties) {
-      return new BrokerDataSeerOperationClient(requester, properties);
+    public DataSeerReportServerRSocketController dataSeerReportServerRSocketController() {
+      return new DataSeerReportServerRSocketController();
     }
   }
 
@@ -49,9 +55,8 @@ public class DataSeerOperationClientAutoConfiguration {
   public static class ServletConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerOperationClientServlet dataSeerOperationClientServlet(
-        RestTemplate restTemplate) {
-      return new DataSeerOperationClientServletImpl(restTemplate);
+    public DataSeerReportServerServletController dataSeerReportServerServletController() {
+      return new DataSeerReportServerServletController();
     }
   }
 }

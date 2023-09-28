@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.doodle.dataseer.autoconfigure.operation.server;
+package org.doodle.dataseer.autoconfigure.server;
 
 import org.doodle.broker.autoconfigure.client.BrokerClientAutoConfiguration;
 import org.doodle.broker.client.BrokerClientRSocketRequester;
-import org.doodle.dataseer.operation.server.DataSeerOperationServerMapper;
-import org.doodle.dataseer.operation.server.DataSeerOperationServerProperties;
-import org.doodle.dataseer.operation.server.DataSeerOperationServerRSocketController;
-import org.doodle.dataseer.operation.server.DataSeerOperationServerServletController;
+import org.doodle.dataseer.tracing.server.DataSeerTracingServerMapper;
+import org.doodle.dataseer.tracing.server.DataSeerTracingServerProperties;
+import org.doodle.dataseer.tracing.server.DataSeerTracingServerRSocketController;
+import org.doodle.dataseer.tracing.server.DataSeerTracingServerServletController;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -30,14 +30,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 @AutoConfiguration(after = BrokerClientAutoConfiguration.class)
-@ConditionalOnClass(DataSeerOperationServerProperties.class)
-@EnableConfigurationProperties(DataSeerOperationServerProperties.class)
-public class DataSeerOperationServerAutoConfiguration {
+@ConditionalOnClass(DataSeerTracingServerProperties.class)
+@EnableConfigurationProperties(DataSeerTracingServerProperties.class)
+public class DataSeerTracingServerAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public DataSeerOperationServerMapper dataSeerOperationServerMapper() {
-    return new DataSeerOperationServerMapper();
+  public DataSeerTracingServerMapper dataSeerTracingServerMapper() {
+    return new DataSeerTracingServerMapper();
   }
 
   @AutoConfiguration
@@ -46,8 +46,8 @@ public class DataSeerOperationServerAutoConfiguration {
   public static class RSocketConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerOperationServerRSocketController dataSeerOperationServerRSocketController() {
-      return new DataSeerOperationServerRSocketController();
+    public DataSeerTracingServerRSocketController dataSeerTracingServerRSocketController() {
+      return new DataSeerTracingServerRSocketController();
     }
   }
 
@@ -56,8 +56,8 @@ public class DataSeerOperationServerAutoConfiguration {
   public static class ServletConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerOperationServerServletController dataSeerOperationServerServletController() {
-      return new DataSeerOperationServerServletController();
+    public DataSeerTracingServerServletController dataSeerTracingServerServletController() {
+      return new DataSeerTracingServerServletController();
     }
   }
 }

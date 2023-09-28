@@ -15,5 +15,6 @@
   <modules>
     <module>doodle-dataseer-operation-client-core</module>
     <module>doodle-dataseer-operation-server-core</module>
+    <module>doodle-dataseer-operation-vaadin-core</module>
   </modules>
 </project>

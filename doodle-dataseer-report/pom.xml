@@ -15,5 +15,6 @@
   <modules>
     <module>doodle-dataseer-report-client-core</module>
     <module>doodle-dataseer-report-server-core</module>
+    <module>doodle-dataseer-report-vaadin-core</module>
   </modules>
 </project>

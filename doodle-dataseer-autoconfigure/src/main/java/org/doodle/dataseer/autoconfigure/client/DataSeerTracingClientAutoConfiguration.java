@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.doodle.dataseer.autoconfigure.report.server;
+package org.doodle.dataseer.autoconfigure.client;
 
+import org.doodle.broker.autoconfigure.client.BrokerClientAutoConfiguration;
 import org.doodle.broker.client.BrokerClientRSocketRequester;
-import org.doodle.dataseer.report.server.DataSeerReportServerMapper;
-import org.doodle.dataseer.report.server.DataSeerReportServerProperties;
-import org.doodle.dataseer.report.server.DataSeerReportServerRSocketController;
-import org.doodle.dataseer.report.server.DataSeerReportServerServletController;
+import org.doodle.dataseer.tracing.client.*;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -27,17 +25,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
-@AutoConfiguration
-@ConditionalOnClass(DataSeerReportServerProperties.class)
-@EnableConfigurationProperties(DataSeerReportServerProperties.class)
-public class DataSeerReportServerAutoConfiguration {
-
-  @Bean
-  @ConditionalOnMissingBean
-  public DataSeerReportServerMapper dataSeerReportServerMapper() {
-    return new DataSeerReportServerMapper();
-  }
+@AutoConfiguration(after = BrokerClientAutoConfiguration.class)
+@ConditionalOnClass(DataSeerTracingClientProperties.class)
+@EnableConfigurationProperties(DataSeerTracingClientProperties.class)
+public class DataSeerTracingClientAutoConfiguration {
 
   @AutoConfiguration
   @ConditionalOnClass(BrokerClientRSocketRequester.class)
@@ -45,8 +38,9 @@ public class DataSeerReportServerAutoConfiguration {
   public static class RSocketConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerReportServerRSocketController dataSeerReportServerRSocketController() {
-      return new DataSeerReportServerRSocketController();
+    public DataSeerTracingClientRSocket dataSeerTracingClientRSocket(
+        BrokerClientRSocketRequester requester, DataSeerTracingClientProperties properties) {
+      return new BrokerDataSeerTracingClient(requester, properties);
     }
   }
 
@@ -55,8 +49,8 @@ public class DataSeerReportServerAutoConfiguration {
   public static class ServletConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerReportServerServletController dataSeerReportServerServletController() {
-      return new DataSeerReportServerServletController();
+    public DataSeerTracingClientServlet dataSeerTracingClientServlet(RestTemplate restTemplate) {
+      return new DataSeerTracingClientServletImpl(restTemplate);
     }
   }
 }

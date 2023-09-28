@@ -42,6 +42,16 @@
       </dependency>
       <dependency>
         <groupId>org.doodle</groupId>
+        <artifactId>doodle-dataseer-operation-vaadin-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.doodle</groupId>
+        <artifactId>doodle-dataseer-starter-operation-vaadin</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.doodle</groupId>
         <artifactId>doodle-dataseer-report-client-core</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -62,6 +72,16 @@
       </dependency>
       <dependency>
         <groupId>org.doodle</groupId>
+        <artifactId>doodle-dataseer-report-vaadin-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.doodle</groupId>
+        <artifactId>doodle-dataseer-starter-report-vaadin</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.doodle</groupId>
         <artifactId>doodle-dataseer-tracing-client-core</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -78,6 +98,16 @@
       <dependency>
         <groupId>org.doodle</groupId>
         <artifactId>doodle-dataseer-starter-tracing-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.doodle</groupId>
+        <artifactId>doodle-dataseer-tracing-vaadin-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.doodle</groupId>
+        <artifactId>doodle-dataseer-starter-tracing-vaadin</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

@@ -15,9 +15,12 @@
   <modules>
     <module>doodle-dataseer-starter-operation-client</module>
     <module>doodle-dataseer-starter-operation-server</module>
+    <module>doodle-dataseer-starter-operation-vaadin</module>
     <module>doodle-dataseer-starter-report-client</module>
     <module>doodle-dataseer-starter-report-server</module>
+    <module>doodle-dataseer-starter-report-vaadin</module>
     <module>doodle-dataseer-starter-tracing-client</module>
     <module>doodle-dataseer-starter-tracing-server</module>
+    <module>doodle-dataseer-starter-tracing-vaadin</module>
   </modules>
 </project>

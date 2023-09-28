@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.doodle.dataseer.autoconfigure.tracing.client;
+package org.doodle.dataseer.autoconfigure.client;
 
 import org.doodle.broker.autoconfigure.client.BrokerClientAutoConfiguration;
 import org.doodle.broker.client.BrokerClientRSocketRequester;
-import org.doodle.dataseer.tracing.client.*;
+import org.doodle.dataseer.report.client.*;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -28,9 +28,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @AutoConfiguration(after = BrokerClientAutoConfiguration.class)
-@ConditionalOnClass(DataSeerTracingClientProperties.class)
-@EnableConfigurationProperties(DataSeerTracingClientProperties.class)
-public class DataSeerTracingClientAutoConfiguration {
+@ConditionalOnClass(DataSeerReportClientProperties.class)
+@EnableConfigurationProperties(DataSeerReportClientProperties.class)
+public class DataSeerReportClientAutoConfiguration {
 
   @AutoConfiguration
   @ConditionalOnClass(BrokerClientRSocketRequester.class)
@@ -38,9 +38,9 @@ public class DataSeerTracingClientAutoConfiguration {
   public static class RSocketConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerTracingClientRSocket dataSeerTracingClientRSocket(
-        BrokerClientRSocketRequester requester, DataSeerTracingClientProperties properties) {
-      return new BrokerDataSeerTracingClient(requester, properties);
+    public DataSeerReportClientRSocket dataSeerReportClientRSocket(
+        BrokerClientRSocketRequester requester, DataSeerReportClientProperties properties) {
+      return new BrokerDataSeerReportClient(requester, properties);
     }
   }
 
@@ -49,8 +49,8 @@ public class DataSeerTracingClientAutoConfiguration {
   public static class ServletConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerTracingClientServlet dataSeerTracingClientServlet(RestTemplate restTemplate) {
-      return new DataSeerTracingClientServletImpl(restTemplate);
+    public DataSeerReportClientServlet dataSeerReportClientServlet(RestTemplate restTemplate) {
+      return new DataSeerReportClientServletImpl(restTemplate);
     }
   }
 }
