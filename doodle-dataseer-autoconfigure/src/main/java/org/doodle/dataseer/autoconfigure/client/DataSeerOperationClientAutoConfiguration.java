@@ -24,8 +24,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 @AutoConfiguration(after = BrokerClientAutoConfiguration.class)
 @ConditionalOnClass(DataSeerOperationClientProperties.class)
@@ -50,8 +50,8 @@ public class DataSeerOperationClientAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public DataSeerOperationClientServlet dataSeerOperationClientServlet(
-        RestTemplate restTemplate) {
-      return new DataSeerOperationClientServletImpl(restTemplate);
+        RestTemplateBuilder builder) {
+      return new DataSeerOperationClientServletImpl(builder.build());
     }
   }
 }
