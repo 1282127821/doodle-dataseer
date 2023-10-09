@@ -42,6 +42,10 @@ public class DataSeerReportServerRSocketController
   @MessageMapping(DataSeerReportLogPageOps.RSocket.PAGE_MAPPING)
   @Override
   public Mono<DataSeerReportLogPageReply> page(DataSeerReportLogPageRequest request) {
-    return Mono.empty();
+    return Mono.fromSupplier(request::getPage)
+        .map(mapper::fromProto)
+        .flatMap(logService::pageMono)
+        .map(mapper::toReportLogList)
+        .map(mapper::toReportLogPageReply);
   }
 }

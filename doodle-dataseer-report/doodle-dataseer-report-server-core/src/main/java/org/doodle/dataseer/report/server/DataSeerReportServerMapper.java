@@ -23,4 +23,8 @@ public class DataSeerReportServerMapper extends DataSeerMapper {
   public DataSeerReportServerLogEntity toEntity(ReportLog log) {
     return DataSeerReportServerLogEntity.builder().logInfo(log.getLogInfo()).build();
   }
+
+  public ReportLog toPojo(DataSeerReportServerLogEntity logEntity) {
+    return ReportLog.builder().logInfo(logEntity.getLogInfo()).build();
+  }
 }
