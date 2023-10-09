@@ -80,8 +80,8 @@ public class DataSeerReportServerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public DataSeerReportServerServletController dataSeerReportServerServletController(
-        DataSeerReportServerLogService logService) {
-      return new DataSeerReportServerServletController(logService);
+        DataSeerReportServerMapper mapper, DataSeerReportServerLogService logService) {
+      return new DataSeerReportServerServletController(mapper, logService);
     }
   }
 }

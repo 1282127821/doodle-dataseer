@@ -15,12 +15,14 @@
  */
 package org.doodle.dataseer.report.server;
 
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.doodle.design.common.Result;
 import org.doodle.design.dataseer.DataSeerReportLogPageOps;
 import org.doodle.design.dataseer.DataSeerReportLogUploadOps;
+import org.doodle.design.dataseer.model.info.ReportLog;
 import org.doodle.design.dataseer.model.payload.reply.DataSeerReportLogPageReply;
 import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogPageRequest;
 import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogUploadRequest;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class DataSeerReportServerServletController
     implements DataSeerReportLogUploadOps.Servlet, DataSeerReportLogPageOps.Servlet {
+  DataSeerReportServerMapper mapper;
   DataSeerReportServerLogService logService;
 
   @PostMapping(DataSeerReportLogUploadOps.Servlet.UPLOAD_MAPPING)
@@ -46,6 +49,7 @@ public class DataSeerReportServerServletController
   @Override
   public Result<DataSeerReportLogPageReply> page(
       @RequestBody DataSeerReportLogPageRequest request) {
-    return Result.bad();
+    List<ReportLog> logs = logService.page(request.getPage());
+    return Result.ok(mapper.toReportPageReply(logs));
   }
 }
