@@ -1,0 +1,10 @@
+server:
+  port: 9001
+
+spring:
+  data:
+    mongodb:
+      database: doodle-dataseer
+      authentication-database: admin
+      username: doodle
+      password: doodle

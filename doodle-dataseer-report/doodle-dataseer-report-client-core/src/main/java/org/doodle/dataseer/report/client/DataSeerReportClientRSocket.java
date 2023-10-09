@@ -16,5 +16,7 @@
 package org.doodle.dataseer.report.client;
 
 import org.doodle.design.dataseer.DataSeerReportLogPageOps;
+import org.doodle.design.dataseer.DataSeerReportLogUploadOps;
 
-public interface DataSeerReportClientRSocket extends DataSeerReportLogPageOps.RSocket {}
+public interface DataSeerReportClientRSocket
+    extends DataSeerReportLogUploadOps.RSocket, DataSeerReportLogPageOps.RSocket {}

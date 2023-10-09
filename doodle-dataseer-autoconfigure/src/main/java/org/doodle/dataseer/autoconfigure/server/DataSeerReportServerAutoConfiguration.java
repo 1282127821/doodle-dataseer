@@ -16,10 +16,7 @@
 package org.doodle.dataseer.autoconfigure.server;
 
 import org.doodle.broker.client.BrokerClientRSocketRequester;
-import org.doodle.dataseer.report.server.DataSeerReportServerMapper;
-import org.doodle.dataseer.report.server.DataSeerReportServerProperties;
-import org.doodle.dataseer.report.server.DataSeerReportServerRSocketController;
-import org.doodle.dataseer.report.server.DataSeerReportServerServletController;
+import org.doodle.dataseer.report.server.*;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -27,10 +24,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @AutoConfiguration
 @ConditionalOnClass(DataSeerReportServerProperties.class)
 @EnableConfigurationProperties(DataSeerReportServerProperties.class)
+@EnableMongoAuditing
+@EnableMongoRepositories(basePackageClasses = DataSeerReportServerLogRepo.class)
 public class DataSeerReportServerAutoConfiguration {
 
   @Bean
@@ -39,14 +40,22 @@ public class DataSeerReportServerAutoConfiguration {
     return new DataSeerReportServerMapper();
   }
 
+  @Bean
+  @ConditionalOnMissingBean
+  public DataSeerReportServerLogService dataSeerReportServerLogService(
+      DataSeerReportServerMapper mapper, DataSeerReportServerLogRepo logRepo) {
+    return new DataSeerReportServerLogService(mapper, logRepo);
+  }
+
   @AutoConfiguration
   @ConditionalOnClass(BrokerClientRSocketRequester.class)
   @ConditionalOnBean(BrokerClientRSocketRequester.class)
   public static class RSocketConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerReportServerRSocketController dataSeerReportServerRSocketController() {
-      return new DataSeerReportServerRSocketController();
+    public DataSeerReportServerRSocketController dataSeerReportServerRSocketController(
+        DataSeerReportServerMapper mapper, DataSeerReportServerLogService logService) {
+      return new DataSeerReportServerRSocketController(mapper, logService);
     }
   }
 
@@ -55,8 +64,9 @@ public class DataSeerReportServerAutoConfiguration {
   public static class ServletConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public DataSeerReportServerServletController dataSeerReportServerServletController() {
-      return new DataSeerReportServerServletController();
+    public DataSeerReportServerServletController dataSeerReportServerServletController(
+        DataSeerReportServerLogService logService) {
+      return new DataSeerReportServerServletController(logService);
     }
   }
 }

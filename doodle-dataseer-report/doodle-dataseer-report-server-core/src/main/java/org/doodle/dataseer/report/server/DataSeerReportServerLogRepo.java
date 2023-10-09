@@ -15,12 +15,9 @@
  */
 package org.doodle.dataseer.report.server;
 
-import org.doodle.design.dataseer.DataSeerMapper;
-import org.doodle.design.dataseer.model.info.ReportLog;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public class DataSeerReportServerMapper extends DataSeerMapper {
-
-  public DataSeerReportServerLogEntity toEntity(ReportLog log) {
-    return DataSeerReportServerLogEntity.builder().logInfo(log.getLogInfo()).build();
-  }
-}
+@Repository
+public interface DataSeerReportServerLogRepo
+    extends MongoRepository<DataSeerReportServerLogEntity, String> {}

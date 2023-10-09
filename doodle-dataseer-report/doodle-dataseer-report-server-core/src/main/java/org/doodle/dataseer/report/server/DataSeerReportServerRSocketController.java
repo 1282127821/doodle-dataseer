@@ -18,9 +18,7 @@ package org.doodle.dataseer.report.server;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.doodle.design.dataseer.DataSeerReportLogPageOps;
-import org.doodle.design.dataseer.DataSeerReportLogPageReply;
-import org.doodle.design.dataseer.DataSeerReportLogPageRequest;
+import org.doodle.design.dataseer.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Mono;
@@ -28,7 +26,18 @@ import reactor.core.publisher.Mono;
 @Controller
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class DataSeerReportServerRSocketController implements DataSeerReportLogPageOps.RSocket {
+public class DataSeerReportServerRSocketController
+    implements DataSeerReportLogUploadOps.RSocket, DataSeerReportLogPageOps.RSocket {
+  DataSeerReportServerMapper mapper;
+  DataSeerReportServerLogService logService;
+
+  @MessageMapping(DataSeerReportLogUploadOps.RSocket.UPLOAD_MAPPING)
+  @Override
+  public Mono<Void> report(DataSeerReportLogUploadRequest request) {
+    return Mono.fromSupplier(request::getReportLog)
+        .map(mapper::fromProto)
+        .flatMap(logService::reportMono);
+  }
 
   @MessageMapping(DataSeerReportLogPageOps.RSocket.PAGE_MAPPING)
   @Override

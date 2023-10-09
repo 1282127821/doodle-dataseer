@@ -15,12 +15,24 @@
  */
 package org.doodle.dataseer.report.server;
 
-import org.doodle.design.dataseer.DataSeerMapper;
-import org.doodle.design.dataseer.model.info.ReportLog;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.doodle.design.common.model.LogInfo;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-public class DataSeerReportServerMapper extends DataSeerMapper {
+@Builder
+@ToString
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = DataSeerReportServerLogEntity.COLLECTION)
+public class DataSeerReportServerLogEntity {
+  public static final String COLLECTION = "report-logs";
 
-  public DataSeerReportServerLogEntity toEntity(ReportLog log) {
-    return DataSeerReportServerLogEntity.builder().logInfo(log.getLogInfo()).build();
-  }
+  @MongoId String id;
+
+  LogInfo logInfo;
 }

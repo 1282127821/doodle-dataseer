@@ -22,9 +22,7 @@ import org.doodle.broker.client.BrokerClientRSocketRequester;
 import org.doodle.design.broker.frame.BrokerFrame;
 import org.doodle.design.broker.frame.BrokerFrameMimeTypes;
 import org.doodle.design.broker.frame.BrokerFrameUtils;
-import org.doodle.design.dataseer.DataSeerReportLogPageReply;
-import org.doodle.design.dataseer.DataSeerReportLogPageRequest;
-import org.doodle.design.dataseer.DataSeerTracingLogPageOps;
+import org.doodle.design.dataseer.*;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import reactor.core.publisher.Mono;
 
@@ -38,6 +36,11 @@ public class BrokerDataSeerReportClient implements DataSeerReportClientRSocket {
       BrokerClientRSocketRequester requester, DataSeerReportClientProperties properties) {
     this.requester = requester;
     this.frame = BrokerFrameUtils.unicast(properties.getServer().getTags());
+  }
+
+  @Override
+  public Mono<Void> report(DataSeerReportLogUploadRequest request) {
+    return route(DataSeerReportLogUploadOps.RSocket.UPLOAD_MAPPING).data(request).send();
   }
 
   @Override

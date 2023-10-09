@@ -21,14 +21,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.doodle.design.common.Result;
 import org.doodle.design.dataseer.DataSeerReportLogPageOps;
+import org.doodle.design.dataseer.DataSeerReportLogUploadOps;
 import org.doodle.design.dataseer.model.payload.reply.DataSeerReportLogPageReply;
 import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogPageRequest;
+import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogUploadRequest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -39,10 +40,23 @@ public class DataSeerReportClientServletImpl implements DataSeerReportClientServ
   static final ParameterizedTypeReference<Result<DataSeerReportLogPageReply>> PAGE_REPLY =
       new ParameterizedTypeReference<>() {};
 
-  @PostMapping(DataSeerReportLogPageOps.Servlet.PAGE_MAPPING)
+  static final ParameterizedTypeReference<Result<Void>> UPLOAD_REPLY =
+      new ParameterizedTypeReference<>() {};
+
+  @Override
+  public Result<Void> report(DataSeerReportLogUploadRequest request) {
+    return restTemplate
+        .exchange(
+            DataSeerReportLogUploadOps.Servlet.UPLOAD_MAPPING,
+            HttpMethod.POST,
+            new HttpEntity<>(request, createHttpHeaders()),
+            UPLOAD_REPLY)
+        .getBody();
+  }
+
   @Override
   public Result<DataSeerReportLogPageReply> page(DataSeerReportLogPageRequest request) {
-    return this.restTemplate
+    return restTemplate
         .exchange(
             DataSeerReportLogPageOps.Servlet.PAGE_MAPPING,
             HttpMethod.POST,

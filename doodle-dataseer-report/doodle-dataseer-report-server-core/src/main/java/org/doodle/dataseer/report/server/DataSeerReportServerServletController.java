@@ -20,19 +20,32 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.doodle.design.common.Result;
 import org.doodle.design.dataseer.DataSeerReportLogPageOps;
+import org.doodle.design.dataseer.DataSeerReportLogUploadOps;
 import org.doodle.design.dataseer.model.payload.reply.DataSeerReportLogPageReply;
 import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogPageRequest;
+import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogUploadRequest;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class DataSeerReportServerServletController implements DataSeerReportLogPageOps.Servlet {
+public class DataSeerReportServerServletController
+    implements DataSeerReportLogUploadOps.Servlet, DataSeerReportLogPageOps.Servlet {
+  DataSeerReportServerLogService logService;
+
+  @PostMapping(DataSeerReportLogUploadOps.Servlet.UPLOAD_MAPPING)
+  @Override
+  public Result<Void> report(@RequestBody DataSeerReportLogUploadRequest request) {
+    logService.report(request.getReportLog());
+    return Result.ok().body(null);
+  }
 
   @PostMapping(DataSeerReportLogPageOps.Servlet.PAGE_MAPPING)
   @Override
-  public Result<DataSeerReportLogPageReply> page(DataSeerReportLogPageRequest request) {
+  public Result<DataSeerReportLogPageReply> page(
+      @RequestBody DataSeerReportLogPageRequest request) {
     return Result.bad();
   }
 }

@@ -16,5 +16,7 @@
 package org.doodle.dataseer.report.client;
 
 import org.doodle.design.dataseer.DataSeerReportLogPageOps;
+import org.doodle.design.dataseer.DataSeerReportLogUploadOps;
 
-public interface DataSeerReportClientServlet extends DataSeerReportLogPageOps.Servlet {}
+public interface DataSeerReportClientServlet
+    extends DataSeerReportLogUploadOps.Servlet, DataSeerReportLogPageOps.Servlet {}

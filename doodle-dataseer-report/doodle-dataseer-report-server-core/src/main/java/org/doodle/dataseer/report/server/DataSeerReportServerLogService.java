@@ -15,12 +15,23 @@
  */
 package org.doodle.dataseer.report.server;
 
-import org.doodle.design.dataseer.DataSeerMapper;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.doodle.design.dataseer.model.info.ReportLog;
+import reactor.core.publisher.Mono;
 
-public class DataSeerReportServerMapper extends DataSeerMapper {
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+public class DataSeerReportServerLogService {
+  DataSeerReportServerMapper mapper;
+  DataSeerReportServerLogRepo logRepo;
 
-  public DataSeerReportServerLogEntity toEntity(ReportLog log) {
-    return DataSeerReportServerLogEntity.builder().logInfo(log.getLogInfo()).build();
+  public Mono<Void> reportMono(ReportLog log) {
+    return Mono.fromRunnable(() -> report(log));
+  }
+
+  public void report(ReportLog log) {
+    logRepo.save(mapper.toEntity(log));
   }
 }
