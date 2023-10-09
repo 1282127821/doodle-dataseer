@@ -17,6 +17,7 @@ package org.doodle.dataseer.autoconfigure.server;
 
 import org.doodle.broker.client.BrokerClientRSocketRequester;
 import org.doodle.dataseer.report.server.*;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,6 +25,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -45,6 +47,19 @@ public class DataSeerReportServerAutoConfiguration {
   public DataSeerReportServerLogService dataSeerReportServerLogService(
       DataSeerReportServerMapper mapper, DataSeerReportServerLogRepo logRepo) {
     return new DataSeerReportServerLogService(mapper, logRepo);
+  }
+
+  @Configuration(proxyBeanMethods = false)
+  @ConditionalOnClass(GroupedOpenApi.class)
+  @ConditionalOnWebApplication
+  public static class SpringDocConfiguration {
+    @Bean
+    public GroupedOpenApi reportGroupedOpenApi() {
+      return GroupedOpenApi.builder()
+          .group("dataseer-report-apis")
+          .packagesToScan(DataSeerReportServerProperties.class.getPackage().getName())
+          .build();
+    }
   }
 
   @AutoConfiguration
