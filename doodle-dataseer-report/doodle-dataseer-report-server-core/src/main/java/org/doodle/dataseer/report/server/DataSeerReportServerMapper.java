@@ -21,10 +21,6 @@ import org.doodle.design.dataseer.model.info.ReportLog;
 public class DataSeerReportServerMapper extends DataSeerMapper {
 
   public DataSeerReportServerLogEntity toEntity(ReportLog log) {
-    return DataSeerReportServerLogEntity.builder().logInfo(log.getLogInfo()).build();
-  }
-
-  public ReportLog toPojo(DataSeerReportServerLogEntity logEntity) {
-    return ReportLog.builder().logInfo(logEntity.getLogInfo()).build();
+    return DataSeerReportServerLogEntity.builder().log(log).build();
   }
 }

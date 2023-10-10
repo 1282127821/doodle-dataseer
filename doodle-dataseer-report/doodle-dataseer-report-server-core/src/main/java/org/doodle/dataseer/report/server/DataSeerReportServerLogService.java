@@ -50,7 +50,7 @@ public class DataSeerReportServerLogService {
         logRepo.findAll(Pageable.ofSize(request.getPageSize()).withPage(request.getPageNumber()));
     List<DataSeerReportServerLogEntity> content = page.getContent();
     return !CollectionUtils.isEmpty(content)
-        ? content.stream().map(mapper::toPojo).toList()
+        ? content.stream().map(DataSeerReportServerLogEntity::getLog).toList()
         : Collections.emptyList();
   }
 }

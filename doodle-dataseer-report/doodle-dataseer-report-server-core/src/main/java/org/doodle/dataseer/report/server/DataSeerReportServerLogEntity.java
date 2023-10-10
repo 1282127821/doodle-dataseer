@@ -15,9 +15,11 @@
  */
 package org.doodle.dataseer.report.server;
 
+import java.time.LocalDateTime;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.doodle.design.common.model.LogInfo;
+import org.doodle.design.dataseer.model.info.ReportLog;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -34,5 +36,7 @@ public class DataSeerReportServerLogEntity {
 
   @MongoId String id;
 
-  LogInfo logInfo;
+  ReportLog log;
+
+  @CreatedDate LocalDateTime createdAt;
 }
