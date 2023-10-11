@@ -19,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.doodle.design.dataseer.*;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Mono;
@@ -47,5 +48,10 @@ public class DataSeerReportServerRSocketController
         .flatMap(logService::pageMono)
         .map(mapper::toReportLogList)
         .map(mapper::toReportLogPageReply);
+  }
+
+  @MessageExceptionHandler(DataSeerReportServerExceptions.Page.class)
+  Mono<DataSeerReportLogPageReply> onPageException(DataSeerReportServerExceptions.Page ignored) {
+    return Mono.empty();
   }
 }

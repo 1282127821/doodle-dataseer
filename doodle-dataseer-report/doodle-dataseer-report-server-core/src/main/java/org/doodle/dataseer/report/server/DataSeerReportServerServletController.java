@@ -26,6 +26,8 @@ import org.doodle.design.dataseer.model.info.ReportLog;
 import org.doodle.design.dataseer.model.payload.reply.DataSeerReportLogPageReply;
 import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogPageRequest;
 import org.doodle.design.dataseer.model.payload.request.DataSeerReportLogUploadRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,5 +53,10 @@ public class DataSeerReportServerServletController
       @RequestBody DataSeerReportLogPageRequest request) {
     List<ReportLog> logs = logService.page(request.getPage());
     return Result.ok(mapper.toReportPageReply(logs));
+  }
+
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<Result<Void>> onException(Exception ignored) {
+    return ResponseEntity.badRequest().body(Result.bad());
   }
 }
